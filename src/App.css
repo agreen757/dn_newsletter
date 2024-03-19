@@ -9,6 +9,10 @@
 .ql-editor div, .ql-editor li {
   line-height: 200%;
 }
+.MuiFormControl-root .checkbox .css-1nrlq1o-MuiFormControl-root {
+  width: 100px;
+  text-align: center;
+}
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

@@ -29,7 +29,8 @@ const NewsletterForm = () => {
   const [subject, setSubject] = useState('');
   const [greating, setGreating] = useState('');
   const [emailList, setEmailList] = useState([]);
-  const [checked, setChecked] = useState(false);
+  const [sendAll, setSendAll] = useState(false);
+  const [testing, setTesting] = useState(false);
 
   //useffect will make an api call that uses cors
   /**
@@ -119,13 +120,13 @@ const NewsletterForm = () => {
     event.preventDefault();
     //check if there are empty fields
     console.log(email, content, subject, greating)
-    if (!email && !checked || !content || !subject || !greating) {
+    if (!email && !testing || !content || !subject || !greating) {
       alert('All fields are required');
       return;
     }
 
     //check if the checkbox is checked, if it is, send to all emails in the list waiting for the response of each email
-    if (checked) {
+    if (sendAll) {
       for (let i = 0; i < emailList.length; i++) {
         await sendEmail(emailList[i].creator.email);
       }
@@ -181,13 +182,22 @@ const NewsletterForm = () => {
         <Grid item xl={2} alignContent={'right'}>
           <Grid container spacing={15} justifyContent='space-between' alignItems={'center'}>
             
-            <Grid item xl={2} alignContent={'right'}>
-              <FormControl>
+            <Grid item xl={3} alignContent={'right'}>
+            <FormControl className='checkbox' style={{width: '100px', textAlign: 'center'}}>
                 <Checkbox
                   color="primary"
                   inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  checked={checked}
-                  onChange={(e) => setChecked(e.target.checked)}
+                  checked={testing}
+                  onChange={(e) => setTesting(e.target.checked)}
+                />
+                <label>Test-Mode</label>
+              </FormControl>
+              <FormControl style={{width: '100px', textAlign: 'center'}}>
+                <Checkbox
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  checked={sendAll}
+                  onChange={(e) => setSendAll(e.target.checked)}
                 />
                 <label>Send to all</label>
               </FormControl>
