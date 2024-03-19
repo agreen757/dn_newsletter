@@ -131,7 +131,10 @@ const NewsletterForm = () => {
         await sendEmail(emailList[i].creator.email);
       }
     }
-
+    //check if test mode is checked, if it is, change the email to 'adrian@distro-nation.com
+    if (testing) {
+      setEmail('adrian@distro-nation.com')
+    }
     try {
         const response = await axios.post('https://cjed05n28l.execute-api.us-east-1.amazonaws.com/staging/send-mail', {
             
