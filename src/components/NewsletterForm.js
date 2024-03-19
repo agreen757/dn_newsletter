@@ -56,6 +56,11 @@ const NewsletterForm = () => {
           index === self.findIndex((t) => (
             t.displayName === item.displayName
           ))
+        );//remove duplicate emails from items
+        items = items.filter((item, index, self) =>
+          index === self.findIndex((t) => (
+            t.creator.email === item.creator.email
+          ))
         );
         setEmailList(items); 
       } catch (error) {
