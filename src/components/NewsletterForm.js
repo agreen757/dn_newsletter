@@ -172,7 +172,7 @@ const NewsletterForm = () => {
             <Grid item xs={5}>
               <TextField
                 id="greating"
-                label="Greating"
+                label="Greeting"
                 variant="outlined"
                 value={greating}
                 onChange={(e) => setGreating(e.target.value)} />
