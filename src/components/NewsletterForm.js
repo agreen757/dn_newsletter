@@ -31,19 +31,18 @@ const NewsletterForm = () => {
   const [emailList, setEmailList] = useState([]);
   const [sendAll, setSendAll] = useState(false);
   const [testing, setTesting] = useState(false);
+  const [month, setMonth] = useState('');
+  const [year, setYear] = useState('');
 
-  //useffect will make an api call that uses cors
-  /**
-   * 
-   * use these keys to make an api call
-   * headers: {
-
-    'x-api-key': '79d2a293-bc50-48ad-9a9e-8001041cff4c',
-
-    }
-
-    url https://master.dws03r4d6820k.amplifyapp.com/api/channels
-   */
+  //array of months
+  const months = [
+    'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September',
+    'October', 'November', 'December'
+  ];
+  //array of years
+  const years = [
+    '2021', '2022', '2023', '2024', '2025'
+  ];
   useEffect(() => {
     const fetchData = async () => {
         //
@@ -157,14 +156,14 @@ const NewsletterForm = () => {
 
   return (
     <>
-    <h1>Distro Nation Newsletter</h1>
+    <h1>Distro Nation Payouts Mailer</h1>
     
     <form onSubmit={handleSubmit}>
-    <Grid container spacing={15} justifyContent='space-between' alignItems={'center'}>
-        <Grid item xl={10}>
+    <Grid container spacing={10} justifyContent='space-between' alignItems={'center'}>
+        <Grid item xl={100}>
           <Grid container direction={'row'} spacing={2}>
      
-            <Grid item xs={5}>
+            <Grid item xs={2}>
                 <TextField
                 id="subject"
                 label="Subject"
@@ -172,52 +171,77 @@ const NewsletterForm = () => {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)} />
             </Grid>
-            <Grid item xs={5}>
+            <Grid item xs={2}>
               <TextField
                 id="greating"
-                label="Greating"
+                label="Greeting"
                 variant="outlined"
                 value={greating}
                 onChange={(e) => setGreating(e.target.value)} />
             </Grid>
-          </Grid>
-        </Grid>
-        <Grid item xl={2} alignContent={'right'}>
-          <Grid container spacing={15} justifyContent='space-between' alignItems={'center'}>
-            
-            <Grid item xl={3} alignContent={'right'}>
-            <FormControl className='checkbox' style={{width: '100px', textAlign: 'center'}}>
-                <Checkbox
-                  color="primary"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  checked={testing}
-                  onChange={(e) => setTesting(e.target.checked)}
-                />
-                <label>Test-Mode</label>
+            <Grid item xs={2} alignContent={'center'}>
+                <FormControl>
+                  <Autocomplete
+                      id="month"
+                      options={months}
+                      getOptionLabel={(option) => option}
+                      style={{ width: '10em' }}
+                      renderInput={(params) => <TextField {...params} label="Month" variant="outlined" />}
+                      onChange={(e, value) => setMonth(value)}
+                  />
+                </FormControl>
+            </Grid>
+            <Grid item xs={2}>
+              <FormControl>
+                  <Autocomplete
+                      id="year"
+                      options={years}
+                      getOptionLabel={(option) => option}
+                      style={{ width: '10em' }}
+                      renderInput={(params) => <TextField {...params} label="Year" variant="outlined" />}
+                      onChange={(e, value) => setYear(value)}
+                  />
               </FormControl>
-              <FormControl style={{width: '100px', textAlign: 'center'}}>
-                <Checkbox
-                  color="primary"
-                  inputProps={{ 'aria-label': 'secondary checkbox' }}
-                  checked={sendAll}
-                  onChange={(e) => setSendAll(e.target.checked)}
-                />
-                <label>Send to all</label>
-              </FormControl>
+            </Grid>
+            <Grid item xs={2}>
               <FormControl>
                   <Autocomplete
                       id="email"
                       options={emailList}
                       getOptionLabel={(option) => option.name}
-                      style={{ width: 300 }}
-                      renderInput={(params) => <TextField {...params} label="Email" variant="outlined" />}
+                      style={{ width: '10em' }}
+                      renderInput={(params) => <TextField {...params} label="Select Recipent" variant="outlined" />}
                       onChange={(e, value) => setEmail(value.creator?value.creator.email:'')}
                   />
               </FormControl>
             </Grid>
-
+            <Grid item xs={1} alignContent={'right'}>
+              <FormControl className='checkbox' style={{width: '100px', textAlign: 'center'}}>
+                  <Checkbox
+                    color="primary"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    checked={testing}
+                    onChange={(e) => setTesting(e.target.checked)}
+                  />
+                  <label>Test-Mode</label>
+              </FormControl>
+            </Grid>
+            <Grid item xs={1} alignContent={'right'}>
+             
+                <FormControl style={{width: '100px', textAlign: 'center'}}>
+                  <Checkbox
+                    color="primary"
+                    inputProps={{ 'aria-label': 'secondary checkbox' }}
+                    checked={sendAll}
+                    onChange={(e) => setSendAll(e.target.checked)}
+                  />
+                  <label>Send to all</label>
+                </FormControl>
+              
+              </Grid>
           </Grid>
         </Grid>
+       
       </Grid>
     <ReactQuill theme="snow" value={content} onChange={setContent} modules={modules} style={{ height: '250px' }} />
     <div style={{marginTop:'50px'}}>
