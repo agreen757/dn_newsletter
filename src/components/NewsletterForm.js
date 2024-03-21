@@ -156,7 +156,7 @@ const NewsletterForm = () => {
 
   return (
     <>
-    <h1>Distro Nation Payouts Mailer</h1>
+    <h1>Distro Nation Newsletter</h1>
     
     <form onSubmit={handleSubmit}>
     <Grid container spacing={10} justifyContent='space-between' alignItems={'center'}>
@@ -178,30 +178,6 @@ const NewsletterForm = () => {
                 variant="outlined"
                 value={greating}
                 onChange={(e) => setGreating(e.target.value)} />
-            </Grid>
-            <Grid item xs={2} alignContent={'center'}>
-                <FormControl>
-                  <Autocomplete
-                      id="month"
-                      options={months}
-                      getOptionLabel={(option) => option}
-                      style={{ width: '10em' }}
-                      renderInput={(params) => <TextField {...params} label="Month" variant="outlined" />}
-                      onChange={(e, value) => setMonth(value)}
-                  />
-                </FormControl>
-            </Grid>
-            <Grid item xs={2}>
-              <FormControl>
-                  <Autocomplete
-                      id="year"
-                      options={years}
-                      getOptionLabel={(option) => option}
-                      style={{ width: '10em' }}
-                      renderInput={(params) => <TextField {...params} label="Year" variant="outlined" />}
-                      onChange={(e, value) => setYear(value)}
-                  />
-              </FormControl>
             </Grid>
             <Grid item xs={2}>
               <FormControl>
