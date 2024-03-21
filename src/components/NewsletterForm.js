@@ -31,8 +31,6 @@ const NewsletterForm = () => {
   const [emailList, setEmailList] = useState([]);
   const [sendAll, setSendAll] = useState(false);
   const [testing, setTesting] = useState(false);
-  const [month, setMonth] = useState('');
-  const [year, setYear] = useState('');
 
   //array of months
   const months = [
@@ -159,11 +157,11 @@ const NewsletterForm = () => {
     <h1>Distro Nation Newsletter</h1>
     
     <form onSubmit={handleSubmit}>
-    <Grid container spacing={10} justifyContent='space-between' alignItems={'center'}>
-        <Grid item xl={100}>
+    <Grid container spacing={15} justifyContent='space-between' alignItems={'center'}>
+        <Grid item xl={10}>
           <Grid container direction={'row'} spacing={2}>
      
-            <Grid item xs={2}>
+            <Grid item xs={5}>
                 <TextField
                 id="subject"
                 label="Subject"
@@ -171,53 +169,52 @@ const NewsletterForm = () => {
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)} />
             </Grid>
-            <Grid item xs={2}>
+            <Grid item xs={5}>
               <TextField
                 id="greating"
-                label="Greeting"
+                label="Greating"
                 variant="outlined"
                 value={greating}
                 onChange={(e) => setGreating(e.target.value)} />
             </Grid>
-            <Grid item xs={2}>
+          </Grid>
+        </Grid>
+        <Grid item xl={2} alignContent={'right'}>
+          <Grid container spacing={15} justifyContent='space-between' alignItems={'center'}>
+            
+            <Grid item xl={3} alignContent={'right'}>
+            <FormControl className='checkbox' style={{width: '100px', textAlign: 'center'}}>
+                <Checkbox
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  checked={testing}
+                  onChange={(e) => setTesting(e.target.checked)}
+                />
+                <label>Test-Mode</label>
+              </FormControl>
+              <FormControl style={{width: '100px', textAlign: 'center'}}>
+                <Checkbox
+                  color="primary"
+                  inputProps={{ 'aria-label': 'secondary checkbox' }}
+                  checked={sendAll}
+                  onChange={(e) => setSendAll(e.target.checked)}
+                />
+                <label>Send to all</label>
+              </FormControl>
               <FormControl>
                   <Autocomplete
                       id="email"
                       options={emailList}
                       getOptionLabel={(option) => option.name}
-                      style={{ width: '10em' }}
-                      renderInput={(params) => <TextField {...params} label="Select Recipent" variant="outlined" />}
+                      style={{ width: 300 }}
+                      renderInput={(params) => <TextField {...params} label="Email" variant="outlined" />}
                       onChange={(e, value) => setEmail(value.creator?value.creator.email:'')}
                   />
               </FormControl>
             </Grid>
-            <Grid item xs={1} alignContent={'right'}>
-              <FormControl className='checkbox' style={{width: '100px', textAlign: 'center'}}>
-                  <Checkbox
-                    color="primary"
-                    inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    checked={testing}
-                    onChange={(e) => setTesting(e.target.checked)}
-                  />
-                  <label>Test-Mode</label>
-              </FormControl>
-            </Grid>
-            <Grid item xs={1} alignContent={'right'}>
-             
-                <FormControl style={{width: '100px', textAlign: 'center'}}>
-                  <Checkbox
-                    color="primary"
-                    inputProps={{ 'aria-label': 'secondary checkbox' }}
-                    checked={sendAll}
-                    onChange={(e) => setSendAll(e.target.checked)}
-                  />
-                  <label>Send to all</label>
-                </FormControl>
-              
-              </Grid>
+
           </Grid>
         </Grid>
-       
       </Grid>
     <ReactQuill theme="snow" value={content} onChange={setContent} modules={modules} style={{ height: '250px' }} />
     <div style={{marginTop:'50px'}}>
