@@ -17,6 +17,7 @@ import 'react-quill/dist/quill.snow.css'; // import styles
 import Grid from '@mui/material/Grid';
 //import checkbox form control
 import Checkbox from '@mui/material/Checkbox';
+import toast, { Toaster } from 'react-hot-toast';
 
 
 //useffect will make an api call
@@ -47,8 +48,10 @@ const NewsletterForm = () => {
       try {
         const response = await axios.get('https://cjed05n28l.execute-api.us-east-1.amazonaws.com/staging/dn_partner_list_korrect');
 
-        console.log(response);
-        let items = response.data.body;//filter all items that have a blank or empty displayName value
+        //console.log(response);
+        let items = JSON.parse(response.data.body);//filter all items that have a blank or empty displayName value
+        
+
         items = items.filter(item => item.displayName !== '');//remove duplicates from items
         items = items.filter((item, index, self) =>
           index === self.findIndex((t) => (
@@ -155,7 +158,7 @@ const NewsletterForm = () => {
   return (
     <>
     <h1>Distro Nation Newsletter</h1>
-    
+    <Toaster />
     <form onSubmit={handleSubmit}>
     <Grid container spacing={15} justifyContent='space-between' alignItems={'center'}>
         <Grid item xl={10}>
