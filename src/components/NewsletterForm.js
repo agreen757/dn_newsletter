@@ -136,18 +136,23 @@ const NewsletterForm = () => {
       setEmail('adrian@distro-nation.com')
     }
     try {
-        const response = await axios.post('https://cjed05n28l.execute-api.us-east-1.amazonaws.com/staging/send-mail', {
-            
-             
-                message_body: content,
-                message_greeting: greating,
-                subject: subject,
-                template: 'general-message',
-                //text is content w/o html tags
-                text: content.replace(/<[^>]*>?/gm, ''),
-                recipient: email
-            
-        });
+      await toast.promise(
+        sendEmail(email),
+        {
+          loading: 'Sending email to '+email,
+          success: (data) => `Successfully delivered to `+email,
+          error: (err) => `This just happened: ${err.toString()}`,
+        },
+        {
+          style: {
+            minWidth: '250px',
+          },
+          success: {
+            duration: 5000,
+            icon: '🚀',
+          },
+        }
+      );
 
       //window.location.href = '/confirmation';
     } catch (error) {
